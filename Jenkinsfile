@@ -17,18 +17,14 @@ pipeline {
                 
             }
         }
-
-        stage("maven build") {
-            agent {
-                docker {
-                    image 'maven'
-                }
-            }
+        stage("mvn install"){
             steps{
-                script {
+                script{
                     sh "mvn clean install"
                 }
             }
         }
+
+       
     }
 }
