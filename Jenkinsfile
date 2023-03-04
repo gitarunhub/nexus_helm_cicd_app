@@ -34,7 +34,7 @@ pipeline {
         stage("docker image"){
             steps{
                 script{
-                    sh "docker build -t springboot:${BUILD_ID}" .
+                    sh "docker build -t springboot:${BUILD_ID} ."
                 }
             }
         }
