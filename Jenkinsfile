@@ -31,7 +31,7 @@ pipeline {
                 }
             }
         }
-        stage(docker image){
+        stage("docker image"){
             steps{
                 script{
                     sh "docker built -t springboot:${BUILD_ID}"
