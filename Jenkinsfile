@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        VERSION = "${env.BUILD_ID}"
+    }
     stages{
         stage("sonar quality status") {
             agent{
@@ -34,7 +37,16 @@ pipeline {
         stage("docker image"){
             steps{
                 script{
-                    sh "docker build -t springboot:${BUILD_ID} ."
+                    withCredentials([string(credentialsId: 'nexus_pass', variable: 'nexus_cred')]) {
+                        sh'''
+                        docker build -t 192.168.1.25:808/springboot:$VERSION .
+                        docker login -u admin -p $nexus_cred 192.168.1.25:8085
+                        docker push 192.168.1.25:808/springboot:${VERSION}
+                        docker rmi 192.168.1.25:808/springboot:${VERSION}
+                        '''
+
+                    }
+                    
                 }
             }
         }
