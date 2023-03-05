@@ -41,10 +41,9 @@ pipeline {
                         sh'''
                         docker build -t 192.168.1.25:808/springboot:$VERSION .
                         docker login -u admin -p $nexus_cred 192.168.1.25:8085
-                        docker push 192.168.1.25:808/springboot:${VERSION}
+                        docker push 192.168.1.25:8085
                         docker rmi 192.168.1.25:808/springboot:${VERSION}
                         '''
-
                     }
                     
                 }
