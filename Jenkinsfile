@@ -53,7 +53,12 @@ pipeline {
             steps{
                 script{
                     sshagent(['kube']) {
-                        sh 'ssh -o StrictHostKeyChecking=no kube@192.168.1.21 uname -a'
+                        sh 'ssh -o StrictHostKeyChecking=no kube@192.168.1.21 uname -a '
+                        withCredentials([string(credentialsId: 'nexus_pass', variable: 'nexus_cred')]) {
+                        sh'''
+                        docker login -u admin -p $nexus_cred 192.168.1.24:8085 
+                        '''
+
                         
                     }
                 }
