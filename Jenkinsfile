@@ -52,13 +52,13 @@ pipeline {
         stage(ssh_kube){
             steps{
                 script{
-                    withCredentials([string(credentialsId: 'nexus_pass', variable: 'nexus_cred')]){
+                
                     sshagent(['kube']) {
                         sh 'ssh -o StrictHostKeyChecking=no kube@192.168.1.21 uname -a'
                 
                         
                     }
-                    }
+                    
                 }
             }
         }
