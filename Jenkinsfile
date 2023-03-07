@@ -34,37 +34,5 @@ pipeline {
                 }
             }
         }
-<<<<<<< HEAD
- 
-=======
-        stage("docker image"){
-            steps{
-                script{
-                    withCredentials([string(credentialsId: 'nexus_pass', variable: 'nexus_cred')]) {
-                        sh'''
-                        docker build -t 192.168.1.24:8085/springboot:$VERSION .
-                        docker login -u admin -p $nexus_cred 192.168.1.24:8085 
-                        docker push 192.168.1.24:8085/springboot:${VERSION}
-                        docker rmi 192.168.1.24:8085/springboot:${VERSION}
-                        '''
-                    }
-                    
-                }
-            }
-        }
-        stage(ssh_kube){
-            steps{
-                script{
-                
-                    sshagent(['kube']) {
-                        sh 'ssh -o StrictHostKeyChecking=no kube@192.168.1.21 uname -a'
-                
-                        
-                    }
-                    
-                }
-            }
-        }
->>>>>>> 08bfccb81859d1f8bc01f2bb4aac7a8face6f668
     }
 }
