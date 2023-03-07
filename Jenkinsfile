@@ -58,7 +58,7 @@ pipeline {
                         sh'''
                         docker login -u admin -p $nexus_cred 192.168.1.24:8085 
                         '''
-
+                        }
                         
                     }
                 }
